@@ -1,4 +1,6 @@
 export type CallbackDoc = {
+  downloadUrl?: string;
+  uploadState?: string;
   description: string;
   driveSuccess: boolean;
   embedUrl: string;
