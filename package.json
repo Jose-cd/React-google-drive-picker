@@ -1,6 +1,6 @@
 {
   "name": "react-google-drive-picker",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "React google drive picker api",
   "types": "./dist",
   "main": "./dist/index.js",
@@ -18,7 +18,12 @@
     "url": "https://github.com/Jose-cd/React-google-drive-picker/issues"
   },
   "license": "MIT",
-  "keywords": ["react","google","drive","picker"],
+  "keywords": [
+    "react",
+    "google",
+    "drive",
+    "picker"
+  ],
   "devDependencies": {
     "@types/react": "^17.0.5",
     "@typescript-eslint/eslint-plugin": "^4.23.0",
