@@ -2,10 +2,13 @@ import logo from './logo.svg';
 import './App.css';
 import DrivePicker from 'react-google-drive-picker'
 function App() {
+  const [openPicker] = DrivePicker();
+
+  
   return (
     <div className="App">
-      <DrivePicker />
       <header className="App-header">
+        <button onClick={() => openPicker()}>Open picker</button>
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
