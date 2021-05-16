@@ -91,9 +91,6 @@ export default App;
 |    PDFS               |PDF files stored in Google Drive.|
 |    SPREADSHEETS       |Google Drive Spreadsheets.       |
 
-## Picker Props
-
-
 ## Author
 
 [@Jose medina](https://www.linkedin.com/in/jos%C3%A9-medina-56479a128/)
