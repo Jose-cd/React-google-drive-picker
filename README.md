@@ -80,16 +80,16 @@ export default App;
   ## viewId options
 |    option            |         description             |
 |----------------------|---------------------------------|
-|    "DOCS"            |All Google Drive document types. |
-|  "DOCS_IMAGES"          |Google Drive photos.             
-|"DOCS_IMAGES_AND_VIDEOS" |Google Drive photos and videos.  |
-|    "DOCS_VIDEOS"        |Google Drive videos.             |
-|    "DOCUMENTS"          |	Google Drive Documents.         |
-|    "FOLDERS"            |Google Drive Folders.            |
-|    "DRAWINGS"           |Google Drive Drawings.           |
-|    "FORMS"              |	Google Drive Forms.             |
-|    "PDFS"               |PDF files stored in Google Drive.|
-|    "SPREADSHEETS"       |Google Drive Spreadsheets.       |
+|    DOCS            |All Google Drive document types. |
+|  DOCS_IMAGES          |Google Drive photos.             
+|DOCS_IMAGES_AND_VIDEOS |Google Drive photos and videos.  |
+|    DOCS_VIDEOS        |Google Drive videos.             |
+|    DOCUMENTS          |	Google Drive Documents.         |
+|    FOLDERS            |Google Drive Folders.            |
+|    DRAWINGS           |Google Drive Drawings.           |
+|    FORMS              |	Google Drive Forms.             |
+|    PDFS               |PDF files stored in Google Drive.|
+|    SPREADSHEETS       |Google Drive Spreadsheets.       |
 
 ## Picker Props
 
