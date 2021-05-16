@@ -65,6 +65,7 @@ export default App;
 ## Picker Props
 
 |    params        |   value  |  default value   |          description          |
+|------------------|----------|------------------|-------------------------------|
 |    clientId      |  string  |     REQUIRED     |      google client id         |
 |    developerKey  |  string  |     REQUIRED     |      google developer key     |
 |    viewId        |  string  |     REQUIRED     |         ViewIdOptions         |
@@ -74,6 +75,21 @@ export default App;
 | showUploadView   |  boolean |     false        |     enable upload view        |
 | showUploadFolders|  boolean |     false        |enable folder selection(upload)|
 | setParentFolder  |  string  |     disabled     |  Drive folder id to upload    |
+
+
+  ## viewId options
+|    option            |         description             |
+|----------------------|---------------------------------|
+|    "DOCS"            |All Google Drive document types. |
+|  "DOCS_IMAGES"          |Google Drive photos.             
+|"DOCS_IMAGES_AND_VIDEOS" |Google Drive photos and videos.  |
+|    "DOCS_VIDEOS"        |Google Drive videos.             |
+|    "DOCUMENTS"          |	Google Drive Documents.         |
+|    "FOLDERS"            |Google Drive Folders.            |
+|    "DRAWINGS"           |Google Drive Drawings.           |
+|    "FORMS"              |	Google Drive Forms.             |
+|    "PDFS"               |PDF files stored in Google Drive.|
+|    "SPREADSHEETS"       |Google Drive Spreadsheets.       |
 
 ## Picker Props
 
