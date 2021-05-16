@@ -9,7 +9,7 @@
     "dev": "nodemon ./dist/index.js",
     "lint": "eslint 'src/**/*.{js,ts,tsx} --fix"
   },
-  "author": "",
+  "author": "Jose-cd",
   "license": "ISC",
   "devDependencies": {
     "@types/react": "^17.0.5",
