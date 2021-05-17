@@ -68,18 +68,20 @@ export default App;
 
 |    params        |   value  |  default value   |          description          |
 |------------------|----------|------------------|-------------------------------|
-|    clientId      |  string  |     REQUIRED     |      google client id         |
-|    developerKey  |  string  |     REQUIRED     |      google developer key     |
+|    clientId      |  string  |     REQUIRED     |      Google client id         |
+|    developerKey  |  string  |     REQUIRED     |      Google developer key     |
 |    viewId        |  string  |     DOCS         |         ViewIdOptions         |
-|    viewMimeTypes |  string  |image/png,image/jpeg,image/jpg| comma separated mimetypes|
+|    viewMimeTypes |  string  |     optional     |Comma separated mimetypes. Use this in place of viewId if you need to filter multiple type of files. list: https://developers.google.com/drive/api/v3/mime-types.|
+|setIncludeFolders|  boolean  |     false        |Show folders in the view items.|
+|setSelectFolderEnabled|boolean|     false       |Allows the user to select a folder in Google Drive.|
 |   token          |  string  |     optional     | access_token to skip auth part|
-|  multiselect     |  boolean |     false        | enable picker multiselect     |
-| supportDrives    |  boolean |     false        |    support shared drives      |
-| showUploadView   |  boolean |     false        |     enable upload view        |
-| showUploadFolders|  boolean |     false        |enable folder selection(upload)|
+|  multiselect     |  boolean |     false        | Enable picker multiselect     |
+| supportDrives    |  boolean |     false        |    Support shared drives      |
+| showUploadView   |  boolean |     false        |     Enable upload view        |
+| showUploadFolders|  boolean |     false        |Enable folder selection(upload)|
 | setParentFolder  |  string  |     disabled     |  Drive folder id to upload    |
-| customViews      |ViewClass[]|    optional     |  array of custom views you want to add to the picker|
-| locale           |string    |    en            | list of supported locales https://developers.google.com/picker/docs#i18n|
+| customViews      |ViewClass[]|    optional     |  Array of custom views you want to add to the picker|
+| locale           |string    |    en            | List of supported locales https://developers.google.com/picker/docs#i18n|
 
 
   ## viewId options

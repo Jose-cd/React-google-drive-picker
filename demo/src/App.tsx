@@ -7,16 +7,20 @@ declare let google: any;
 function App() {
   const [openPicker, data] = useDrivePicker();
   const handleOpenPicker = () => {
-    const customView = [new google.picker.DocsView()];
+    const customViews = [
+      new google.picker.DocsView()
+        .setIncludeFolders(true)
+        .setSelectFolderEnabled(true),
+    ];
     openPicker({
-      clientId:
-        "1083447939024-dqpa47vi26h23psatvfh0vepb21crm75.apps.googleusercontent.com",
-      developerKey: "AIzaSyCVCEd0GFFSbj3qe9AU6PUTjx1qaPdF8_g",
-      viewId: "DOCS",
+      clientId: "xxxxxxxxxxxxxx",
+      developerKey: "xxxxxxxxxx",
+      viewId: "DOCUMENTS",
       viewMimeTypes: "application/vnd.google-apps.spreadsheet",
-      customViews: customView,
-      // token:
-      //   "ya29.a0AfH6SMA2TJQYdy2Xc-l9nbgdEccsldwza_EsT2nY4LCvuExo5R34DqVGWNPZzxoImpX_m7gQ5sS7cumvHpWSCGi5OU1BG3JSAis2a2nAkiLe5soUzOoBIqin9MxO036fh7c5d4OLCEFKvwwxtsgNukPDO7_evg", // pass oauth token in case you already have one
+      setIncludeFolders: true,
+      setSelectFolderEnabled: true,
+      // customViews: customView,
+      // token: token
       showUploadView: true,
       showUploadFolders: true,
       supportDrives: true,

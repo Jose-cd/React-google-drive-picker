@@ -103,14 +103,18 @@ export default function useDrivePicker(): [
     showUploadView = false,
     showUploadFolders,
     setParentFolder = "",
-    viewMimeTypes = "image/png,image/jpeg,image/jpg",
+    viewMimeTypes,
     customViews,
     locale = "en",
+    setIncludeFolders,
+    setSelectFolderEnabled,
   }: PickerConfiguration) => {
     if (disabled) return false;
 
-    const view = new google.picker.View(google.picker.ViewId[viewId]);
-    view.setMimeTypes(viewMimeTypes);
+    const view = new google.picker.DocsView(google.picker.ViewId[viewId]);
+    if (viewMimeTypes) view.setMimeTypes(viewMimeTypes);
+    if (setIncludeFolders) view.setSelectFolderEnabled(true);
+    if (setSelectFolderEnabled) view.setSelectFolderEnabled(true);
 
     const uploadView = new google.picker.DocsUploadView();
     if (showUploadFolders) uploadView.setIncludeFolders(true);

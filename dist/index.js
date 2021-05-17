@@ -78,11 +78,16 @@ function useDrivePicker() {
         }
     };
     var createPicker = function (_a) {
-        var token = _a.token, _b = _a.appId, appId = _b === void 0 ? "" : _b, _c = _a.supportDrives, supportDrives = _c === void 0 ? false : _c, developerKey = _a.developerKey, _d = _a.viewId, viewId = _d === void 0 ? "DOCS" : _d, disabled = _a.disabled, multiselect = _a.multiselect, _e = _a.showUploadView, showUploadView = _e === void 0 ? false : _e, showUploadFolders = _a.showUploadFolders, _f = _a.setParentFolder, setParentFolder = _f === void 0 ? "" : _f, _g = _a.viewMimeTypes, viewMimeTypes = _g === void 0 ? "image/png,image/jpeg,image/jpg" : _g, customViews = _a.customViews, _h = _a.locale, locale = _h === void 0 ? "en" : _h;
+        var token = _a.token, _b = _a.appId, appId = _b === void 0 ? "" : _b, _c = _a.supportDrives, supportDrives = _c === void 0 ? false : _c, developerKey = _a.developerKey, _d = _a.viewId, viewId = _d === void 0 ? "DOCS" : _d, disabled = _a.disabled, multiselect = _a.multiselect, _e = _a.showUploadView, showUploadView = _e === void 0 ? false : _e, showUploadFolders = _a.showUploadFolders, _f = _a.setParentFolder, setParentFolder = _f === void 0 ? "" : _f, viewMimeTypes = _a.viewMimeTypes, customViews = _a.customViews, _g = _a.locale, locale = _g === void 0 ? "en" : _g, setIncludeFolders = _a.setIncludeFolders, setSelectFolderEnabled = _a.setSelectFolderEnabled;
         if (disabled)
             return false;
-        var view = new google.picker.View(google.picker.ViewId[viewId]);
-        view.setMimeTypes(viewMimeTypes);
+        var view = new google.picker.DocsView(google.picker.ViewId[viewId]);
+        if (viewMimeTypes)
+            view.setMimeTypes(viewMimeTypes);
+        if (setIncludeFolders)
+            view.setSelectFolderEnabled(true);
+        if (setSelectFolderEnabled)
+            view.setSelectFolderEnabled(true);
         var uploadView = new google.picker.DocsUploadView();
         if (showUploadFolders)
             uploadView.setIncludeFolders(true);

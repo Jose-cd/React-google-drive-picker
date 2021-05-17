@@ -45,8 +45,10 @@ declare type ViewIdOptions = "DOCS" | "DOCS_IMAGES" | "DOCS_IMAGES_AND_VIDEOS" |
 export declare type PickerConfiguration = {
     clientId: string;
     developerKey: string;
-    viewId: ViewIdOptions;
+    viewId?: ViewIdOptions;
     viewMimeTypes?: string;
+    setIncludeFolders?: boolean;
+    setSelectFolderEnabled?: boolean;
     token?: string;
     multiselect?: boolean;
     disabled?: boolean;
