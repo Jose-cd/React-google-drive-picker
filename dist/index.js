@@ -20,8 +20,10 @@ function useDrivePicker() {
     var _b = react_1.useState(false), pickerApiLoaded = _b[0], setpickerApiLoaded = _b[1];
     var _c = react_1.useState(), callBackInfo = _c[0], setCallBackInfo = _c[1];
     var _d = react_1.useState(false), openAfterAuth = _d[0], setOpenAfterAuth = _d[1];
-    var _e = react_1.useState(typeDefs_1.defaultConfiguration), config = _e[0], setConfig = _e[1];
-    var picker = null;
+    var _e = react_1.useState(false), authWindowVisible = _e[0], setAuthWindowVisible = _e[1];
+    var _f = react_1.useState(typeDefs_1.defaultConfiguration), config = _f[0], setConfig = _f[1];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    var picker;
     // get the apis from googleapis
     react_1.useEffect(function () {
         if (loaded && !error && !pickerApiLoaded) {
@@ -41,14 +43,14 @@ function useDrivePicker() {
         setConfig(config);
         // if we didnt get token generate token.
         if (!config.token) {
-            openAuthWindow();
+            setAuthWindowVisible(true);
         }
         // if we have token and everything is loaded open the picker
         if (config.token && loaded && !error && pickerApiLoaded) {
             return createPicker(config);
         }
     };
-    // load the Drive picker api 
+    // load the Drive picker api
     var loadApis = function () {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         window.gapi.load("auth");
@@ -58,25 +60,29 @@ function useDrivePicker() {
     var onPickerApiLoad = function () {
         setpickerApiLoaded(true);
     };
-    var openAuthWindow = function () {
-        window.gapi.auth.authorize({
-            client_id: "1083447939024-dqpa47vi26h23psatvfh0vepb21crm75.apps.googleusercontent.com",
-            scope: defaultScopes,
-            immediate: false
-        }, handleAuthResult);
-    };
+    // Open auth window after given config state is ready
+    react_1.useEffect(function () {
+        if (authWindowVisible) {
+            window.gapi.auth.authorize({
+                client_id: config.clientId,
+                scope: defaultScopes,
+                immediate: false,
+            }, handleAuthResult);
+        }
+    }, [authWindowVisible]);
     var handleAuthResult = function (authResult) {
+        setAuthWindowVisible(false);
         if (authResult && !authResult.error) {
             setConfig(function (prev) { return (__assign(__assign({}, prev), { token: authResult.access_token })); });
             setOpenAfterAuth(true);
         }
     };
     var createPicker = function (_a) {
-        var token = _a.token, _b = _a.appId, appId = _b === void 0 ? "" : _b, _c = _a.supportDrives, supportDrives = _c === void 0 ? false : _c, developerKey = _a.developerKey, _d = _a.viewId, viewId = _d === void 0 ? "DOCS" : _d, disabled = _a.disabled, multiselect = _a.multiselect, _e = _a.showUploadView, showUploadView = _e === void 0 ? false : _e, showUploadFolders = _a.showUploadFolders, _f = _a.setParentFolder, setParentFolder = _f === void 0 ? "" : _f;
+        var token = _a.token, _b = _a.appId, appId = _b === void 0 ? "" : _b, _c = _a.supportDrives, supportDrives = _c === void 0 ? false : _c, developerKey = _a.developerKey, _d = _a.viewId, viewId = _d === void 0 ? "DOCS" : _d, disabled = _a.disabled, multiselect = _a.multiselect, _e = _a.showUploadView, showUploadView = _e === void 0 ? false : _e, showUploadFolders = _a.showUploadFolders, _f = _a.setParentFolder, setParentFolder = _f === void 0 ? "" : _f, _g = _a.viewMimeTypes, viewMimeTypes = _g === void 0 ? "image/png,image/jpeg,image/jpg" : _g, customViews = _a.customViews, _h = _a.locale, locale = _h === void 0 ? "en" : _h;
         if (disabled)
             return false;
         var view = new google.picker.View(google.picker.ViewId[viewId]);
-        view.setMimeTypes("image/png,image/jpeg,image/jpg");
+        view.setMimeTypes(viewMimeTypes);
         var uploadView = new google.picker.DocsUploadView();
         if (showUploadFolders)
             uploadView.setIncludeFolders(true);
@@ -88,9 +94,13 @@ function useDrivePicker() {
             .addView(view)
             .setDeveloperKey(developerKey)
             .setCallback(pickerCallback)
-            .setLocale("en");
-        if (multiselect)
+            .setLocale(locale);
+        if (customViews) {
+            customViews.map(function (view) { return picker.addView(view); });
+        }
+        if (multiselect) {
             picker.enableFeature(google.picker.Feature.MULTISELECT_ENABLED);
+        }
         if (showUploadView)
             picker.addView(uploadView);
         if (supportDrives) {

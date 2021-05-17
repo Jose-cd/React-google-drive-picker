@@ -56,6 +56,7 @@ export type PickerConfiguration = {
   clientId: string;
   developerKey: string;
   viewId: ViewIdOptions;
+  viewMimeTypes?: string;
   token?: string;
   multiselect?: boolean;
   disabled?: boolean;
@@ -64,6 +65,9 @@ export type PickerConfiguration = {
   showUploadView?: boolean;
   showUploadFolders?: boolean;
   setParentFolder?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  customViews?: any[];
+  locale?: string;
 };
 
 export const defaultConfiguration: PickerConfiguration = {

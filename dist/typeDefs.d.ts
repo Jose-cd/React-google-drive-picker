@@ -46,6 +46,7 @@ export declare type PickerConfiguration = {
     clientId: string;
     developerKey: string;
     viewId: ViewIdOptions;
+    viewMimeTypes?: string;
     token?: string;
     multiselect?: boolean;
     disabled?: boolean;
@@ -54,6 +55,8 @@ export declare type PickerConfiguration = {
     showUploadView?: boolean;
     showUploadFolders?: boolean;
     setParentFolder?: string;
+    customViews?: any[];
+    locale?: string;
 };
 export declare const defaultConfiguration: PickerConfiguration;
 export {};

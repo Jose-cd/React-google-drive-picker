@@ -28,6 +28,7 @@ import useDrivePicker from 'react-google-drive-picker'
 
 function App() {
   const [openPicker, data] = useDrivePicker();  
+  // const customViewsArray = [new google.picker.DocsView()]; // custom view
   const handleOpenPicker = () => {
     openPicker({
       clientId: "xxxxxxxxxxxxxxxxx",
@@ -38,6 +39,7 @@ function App() {
       showUploadFolders: true,
       supportDrives: true,
       multiselect: true,
+      // customViews: customViewsArray, // custom view
     })
   }
 
@@ -68,13 +70,16 @@ export default App;
 |------------------|----------|------------------|-------------------------------|
 |    clientId      |  string  |     REQUIRED     |      google client id         |
 |    developerKey  |  string  |     REQUIRED     |      google developer key     |
-|    viewId        |  string  |     REQUIRED     |         ViewIdOptions         |
-|   token          |  string  |     Optional     | access_token to skip auth part|
+|    viewId        |  string  |     DOCS         |         ViewIdOptions         |
+|    viewMimeTypes |  string  |image/png,image/jpeg,image/jpg| comma separated mimetypes|
+|   token          |  string  |     optional     | access_token to skip auth part|
 |  multiselect     |  boolean |     false        | enable picker multiselect     |
 | supportDrives    |  boolean |     false        |    support shared drives      |
 | showUploadView   |  boolean |     false        |     enable upload view        |
 | showUploadFolders|  boolean |     false        |enable folder selection(upload)|
 | setParentFolder  |  string  |     disabled     |  Drive folder id to upload    |
+| customViews      |ViewClass[]|    optional     |  array of custom views you want to add to the picker|
+| locale           |string    |    en            | list of supported locales https://developers.google.com/picker/docs#i18n|
 
 
   ## viewId options
