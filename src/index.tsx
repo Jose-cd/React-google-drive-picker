@@ -64,7 +64,7 @@ export default function useDrivePicker(): [(config: PickerConfiguration) => bool
 	const openAuthWindow = () => {
     window.gapi.auth.authorize(
       {
-        client_id: "1083447939024-dqpa47vi26h23psatvfh0vepb21crm75.apps.googleusercontent.com",
+        client_id: config.clientId,
         scope: defaultScopes,
         immediate: false
       },
