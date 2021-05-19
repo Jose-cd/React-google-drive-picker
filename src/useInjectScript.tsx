@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 
-const cachedScripts: string[] = [];
-let loaded = 'no' ;
-let script: any = null ;
-let listenerCount = 0 ;
+const url = "https://apis.google.com/js/api.js" ;
 
-export function useInjectScript(url: string): [boolean, boolean] {
+const queue: any[] = [] ;
+let injector: "init"|"loading"|"loaded"|"error" = "init" ;
+let script: any = null ;
+
+export function useInjectScript(): [boolean, boolean] {
   type stateTypes = {
     loaded: boolean;
     error: boolean;
@@ -17,56 +18,61 @@ export function useInjectScript(url: string): [boolean, boolean] {
 
   useEffect(() => {
     // check if the script is already cached
-    if (loaded === 'yes') {
+    if (injector === "loaded") {
       setState({
         loaded: true,
-        error: false,
+        error: false
       });
       return ;
     }
+
+    // check if the script already errored
+    if (injector === "error") {
+      setState({
+        loaded: true,
+        error: true
+      });
+      return ;
+    }
+
+    const onScriptEvent = (error: boolean) => {
+      // Get all error or load functions and call them
+      if(error) console.log("error loading the script");
+      queue.forEach(job => job()) ;
+
+      if(error && script !== null) {
+        script.remove();
+        injector = "error" ;
+      }
+      else
+        injector = "loaded" ;
+      script = null ;
+    }
+
+    const state = (error: boolean) => {
+      setState({
+        loaded: true,
+        error
+      });
+    };
 
     if(script === null) {
       script = document.createElement("script");
       script.src = url;
       script.async = true;
-    }
-
-    const onScriptLoad = () => {
-      cachedScripts.push(url);
-      loaded = 'yes' ;
-      console.log("script Loaded");
-      setState({
-        loaded: true,
-        error: false,
-      });
-    };
-    const onScriptError = () => {
-      console.log("error loading the script");
-      const idx = cachedScripts.indexOf(url);
-      if (idx > 0) cachedScripts.splice(idx, 1);
-      script.remove();
-      setState({
-        loaded: true,
-        error: true,
-      });
-    };
-
-      listenerCount++ ;
-      script.addEventListener("load", onScriptLoad);
-      script.addEventListener("error", onScriptError);
-
-    if (loaded === 'no') {
       // append the script to the body
       document.body.appendChild(script);
-      loaded = 'loading' ;
+      script.addEventListener("load", () => onScriptEvent(false));
+      script.addEventListener("error", () => onScriptEvent(true));
+      injector = "loading" ;
     }
 
-    // remove the event listeners and reset script tag
+    queue.push(state) ;
+
+    // remove the event listeners
     return () => {
-      script.removeEventListener("load", onScriptLoad);
-      script.removeEventListener("error", onScriptError);
-      if(--listenerCount === 0)
-        script = null ;
+      script.removeEventListener("load", onScriptEvent);
+      script.removeEventListener("error", onScriptEvent);
     };
   }, [url]);
 
