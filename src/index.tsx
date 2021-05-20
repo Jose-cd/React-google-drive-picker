@@ -109,6 +109,7 @@ export default function useDrivePicker(): [
       .setLocale(locale);
 
     if (views) {
+      console.log(`Dumping views: %o`,views);
       views.map((view) => picker.addView(view));
     }
 

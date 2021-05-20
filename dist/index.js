@@ -86,6 +86,7 @@ function useDrivePicker() {
             .setCallback(pickerCallback)
             .setLocale(locale);
         if (views) {
+            console.log("Dumping views: %o", views);
             views.map(function (view) { return picker.addView(view); });
         }
         if (features)
