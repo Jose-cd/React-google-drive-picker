@@ -2,63 +2,66 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.useInjectScript = void 0;
 var react_1 = require("react");
-var cachedScripts = [];
-var loaded = "no";
+var url = "https://apis.google.com/js/api.js";
+var queue = [];
+var injector = "init";
 var script = null;
-var listenerCount = 0;
-function useInjectScript(url) {
+function useInjectScript() {
     var _a = react_1.useState({
         loaded: false,
         error: false,
     }), state = _a[0], setState = _a[1];
     react_1.useEffect(function () {
         // check if the script is already cached
-        if (loaded === "yes") {
+        if (injector === "loaded") {
             setState({
                 loaded: true,
-                error: false,
+                error: false
             });
             return;
         }
+        // check if the script already errored
+        if (injector === "error") {
+            setState({
+                loaded: true,
+                error: true
+            });
+            return;
+        }
+        var onScriptEvent = function (error) {
+            // Get all error or load functions and call them
+            if (error)
+                console.log("error loading the script");
+            queue.forEach(function (job) { return job(); });
+            if (error && script !== null) {
+                script.remove();
+                injector = "error";
+            }
+            else
+                injector = "loaded";
+            script = null;
+        };
+        var state = function (error) {
+            setState({
+                loaded: true,
+                error: error
+            });
+        };
         if (script === null) {
             script = document.createElement("script");
             script.src = url;
             script.async = true;
-        }
-        var onScriptLoad = function () {
-            cachedScripts.push(url);
-            loaded = "yes";
-            console.log("script Loaded");
-            setState({
-                loaded: true,
-                error: false,
-            });
-        };
-        var onScriptError = function () {
-            console.log("error loading the script");
-            var idx = cachedScripts.indexOf(url);
-            if (idx > 0)
-                cachedScripts.splice(idx, 1);
-            script.remove();
-            setState({
-                loaded: true,
-                error: true,
-            });
-        };
-        listenerCount++;
-        script.addEventListener("load", onScriptLoad);
-        script.addEventListener("error", onScriptError);
-        if (loaded === "no") {
             // append the script to the body
             document.body.appendChild(script);
-            loaded = "loading";
+            script.addEventListener("load", function () { return onScriptEvent(false); });
+            script.addEventListener("error", function () { return onScriptEvent(true); });
+            injector = "loading";
         }
-        // remove the event listeners and reset script tag
+        queue.push(state);
+        // remove the event listeners
         return function () {
-            script.removeEventListener("load", onScriptLoad);
-            script.removeEventListener("error", onScriptError);
-            if (--listenerCount === 0)
-                script = null;
+            script.removeEventListener("load", onScriptEvent);
+            script.removeEventListener("error", onScriptEvent);
         };
     }, [url]);
     return [state.loaded, state.error];

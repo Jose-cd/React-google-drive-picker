@@ -1,1 +1,2 @@
-{"version":3,"file":"useInjectScript.d.ts","sourceRoot":"","sources":["../src/useInjectScript.tsx"],"names":[],"mappings":"AAOA,wBAAgB,eAAe,CAAC,GAAG,EAAE,MAAM,GAAG,CAAC,OAAO,EAAE,OAAO,CAAC,CAiE/D"}
+{"version":3,"file":"useInjectScript.d.ts","sourceRoot":"","sources":["../src/useInjectScript.tsx"],"names":[],"mappings":"AAQA,wBAAgB,eAAe,IAAI,CAAC,OAAO,EAAE,OAAO,CAAC,CAuEpD"}
+
