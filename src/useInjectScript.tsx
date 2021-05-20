@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-
 const url = "https://apis.google.com/js/api.js" ;
 
 const queue: any[] = [] ;
