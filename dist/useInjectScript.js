@@ -39,7 +39,6 @@ function useInjectScript() {
             }
             else
                 injector = "loaded";
-            script = null;
         };
         var state = function (error) {
             setState({
@@ -60,8 +59,11 @@ function useInjectScript() {
         queue.push(state);
         // remove the event listeners
         return function () {
-            script.removeEventListener("load", onScriptEvent);
-            script.removeEventListener("error", onScriptEvent);
+            if (script) {
+                script.removeEventListener("load", onScriptEvent);
+                script.removeEventListener("error", onScriptEvent);
+                script = null;
+            }
         };
     }, [url]);
     return [state.loaded, state.error];
