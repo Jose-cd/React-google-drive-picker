@@ -86,8 +86,7 @@ function useDrivePicker() {
             .setCallback(pickerCallback)
             .setLocale(locale);
         if (views) {
-            console.log("Dumping views: %o", views);
-            views.forEach(function (view) { return picker.addView(view); });
+            views.map(function (view) { return picker.addView(view); });
         }
         if (features)
             features.forEach(function (feature) { return picker.enableFeature(google.picker.Feature[feature]); });
