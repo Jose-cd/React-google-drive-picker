@@ -68,6 +68,7 @@ function useInjectScript() {
         queue.push(state);
         // remove the event listeners
         return function () {
+            console.log("injector=" + injector);
             script.removeEventListener("load", onScriptEvent);
             script.removeEventListener("error", onScriptEvent);
             script = null;

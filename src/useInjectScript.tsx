@@ -70,6 +70,7 @@ export function useInjectScript(): [boolean, boolean] {
 
     // remove the event listeners
     return () => {
+        console.log(`injector=${injector}`) ;
         script.removeEventListener("load", onScriptEvent);
         script.removeEventListener("error", onScriptEvent);
         script = null ;
