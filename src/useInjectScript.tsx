@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-const url = "https://apis.google.com/js/api.js" ;
+const url = "https://apis.google.com/js/api.js";
 
-const queue: any[] = [] ;
-let injector: "init"|"loading"|"loaded"|"error" = "init" ;
-let script: any = null ;
+const queue: any[] = [];
+let injector: "init" | "loading" | "loaded" | "error" = "init";
+let script: any = null;
 
 export function useInjectScript(): [boolean, boolean] {
   type stateTypes = {
@@ -20,42 +20,40 @@ export function useInjectScript(): [boolean, boolean] {
     if (injector === "loaded") {
       setState({
         loaded: true,
-        error: false
+        error: false,
       });
-      return ;
+      return;
     }
 
     // check if the script already errored
     if (injector === "error") {
       setState({
         loaded: true,
-        error: true
+        error: true,
       });
-      return ;
+      return;
     }
 
     const onScriptEvent = (error: boolean) => {
       // Get all error or load functions and call them
-      if(error) console.log("error loading the script");
-      queue.forEach(job => job()) ;
+      if (error) console.log("error loading the script");
+      queue.forEach((job) => job());
 
-      if(error && script !== null) {
+      if (error && script !== null) {
         script.remove();
-        injector = "error" ;
-      }
-      else
-        injector = "loaded" ;
-      script = null ;
-    }
+        injector = "error";
+      } else injector = "loaded";
+      script = null;
+    };
 
     const state = (error: boolean) => {
       setState({
         loaded: true,
-        error
+        error,
       });
     };
 
-    if(script === null) {
+    if (script === null) {
       script = document.createElement("script");
       script.src = url;
       script.async = true;
@@ -63,13 +61,16 @@ export function useInjectScript(): [boolean, boolean] {
       document.body.appendChild(script);
       script.addEventListener("load", () => onScriptEvent(false));
       script.addEventListener("error", () => onScriptEvent(true));
-      injector = "loading" ;
+      injector = "loading";
     }
 
-    queue.push(state) ;
+    queue.push(state);
 
     // remove the event listeners
     return () => {
+      //checks the main injector instance
+      //prevents Cannot read property 'removeEventListener' of null in hot reload
+      if (!script) return;
       script.removeEventListener("load", onScriptEvent);
       script.removeEventListener("error", onScriptEvent);
     };

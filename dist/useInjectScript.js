@@ -16,7 +16,7 @@ function useInjectScript() {
         if (injector === "loaded") {
             setState({
                 loaded: true,
-                error: false
+                error: false,
             });
             return;
         }
@@ -24,7 +24,7 @@ function useInjectScript() {
         if (injector === "error") {
             setState({
                 loaded: true,
-                error: true
+                error: true,
             });
             return;
         }
@@ -44,7 +44,7 @@ function useInjectScript() {
         var state = function (error) {
             setState({
                 loaded: true,
-                error: error
+                error: error,
             });
         };
         if (script === null) {
@@ -60,6 +60,10 @@ function useInjectScript() {
         queue.push(state);
         // remove the event listeners
         return function () {
+            //checks the main injector instance
+            //prevents Cannot read property 'removeEventListener' of null in hot reload
+            if (!script)
+                return;
             script.removeEventListener("load", onScriptEvent);
             script.removeEventListener("error", onScriptEvent);
         };
