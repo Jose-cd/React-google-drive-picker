@@ -109,7 +109,7 @@ export default function useDrivePicker(): [
       .setLocale(locale);
 
     if (views) {
-      views.map((view) => picker.addView(view));
+      views.forEach((view) => picker.addView(view));
     }
 
     if(features)
