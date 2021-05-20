@@ -97,6 +97,7 @@ export default function useDrivePicker(): [
     appId = "",
     developerKey,
     views,
+    features,
     locale = "en",
   }: PickerConfiguration) => {
 
@@ -110,6 +111,9 @@ export default function useDrivePicker(): [
     if (views) {
       views.map((view) => picker.addView(view));
     }
+
+    if(features)
+      features.forEach(feature => picker.enableFeature(google.picker.Feature[feature]))
 
     picker.build().setVisible(true);
     return true;

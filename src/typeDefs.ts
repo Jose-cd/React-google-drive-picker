@@ -40,6 +40,13 @@ export type authResult = {
   error: boolean | undefined;
 };
 
+export type Features =
+  | "MINE_ONLY"
+  | "MULTISELECT_ENABLED"
+  | "NAV_HIDDEN"
+  | "SIMPLE_UPLOAD_ENABLED"
+  | "SUPPORT_DRIVES" ;
+
 export type PickerConfiguration = {
   clientId: string;
   developerKey: string;
@@ -47,6 +54,7 @@ export type PickerConfiguration = {
   appId?: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   views: any[];
+  features?: Features[];
   locale?: string;
 };
 
