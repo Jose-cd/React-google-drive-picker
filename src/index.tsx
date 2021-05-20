@@ -110,7 +110,7 @@ export default function useDrivePicker(): [
 
     if (views) {
       console.log(`Dumping views: %o`,views);
-      views.map((view) => picker.addView(view));
+      views.forEach((view) => picker.addView(view));
     }
 
     if(features)
