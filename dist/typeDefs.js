@@ -4,6 +4,7 @@ exports.defaultConfiguration = void 0;
 exports.defaultConfiguration = {
     clientId: "",
     developerKey: "",
-    viewId: "DOCS",
+    views: [],
+    locale: "en"
 };
 //# sourceMappingURL=typeDefs.js.map

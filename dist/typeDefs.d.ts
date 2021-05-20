@@ -41,25 +41,15 @@ export declare type authResult = {
     token_type: string;
     error: boolean | undefined;
 };
-declare type ViewIdOptions = "DOCS" | "DOCS_IMAGES" | "DOCS_IMAGES_AND_VIDEOS" | "DOCS_VIDEOS" | "DOCUMENTS" | "DRAWINGS" | "FOLDERS" | "FORMS" | "PDFS" | "SPREADSHEETS";
+export declare type Features = "MINE_ONLY" | "MULTISELECT_ENABLED" | "NAV_HIDDEN" | "SIMPLE_UPLOAD_ENABLED" | "SUPPORT_DRIVES";
 export declare type PickerConfiguration = {
     clientId: string;
     developerKey: string;
-    viewId?: ViewIdOptions;
-    viewMimeTypes?: string;
-    setIncludeFolders?: boolean;
-    setSelectFolderEnabled?: boolean;
     token?: string;
-    multiselect?: boolean;
-    disabled?: boolean;
     appId?: string;
-    supportDrives?: boolean;
-    showUploadView?: boolean;
-    showUploadFolders?: boolean;
-    setParentFolder?: string;
-    customViews?: any[];
+    views: any[];
+    features?: Features[];
     locale?: string;
 };
 export declare const defaultConfiguration: PickerConfiguration;
-export {};
 //# sourceMappingURL=typeDefs.d.ts.map
