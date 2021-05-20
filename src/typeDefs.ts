@@ -40,40 +40,19 @@ export type authResult = {
   error: boolean | undefined;
 };
 
-type ViewIdOptions =
-  | "DOCS"
-  | "DOCS_IMAGES"
-  | "DOCS_IMAGES_AND_VIDEOS"
-  | "DOCS_VIDEOS"
-  | "DOCUMENTS"
-  | "DRAWINGS"
-  | "FOLDERS"
-  | "FORMS"
-  | "PDFS"
-  | "SPREADSHEETS";
-
 export type PickerConfiguration = {
   clientId: string;
   developerKey: string;
-  viewId?: ViewIdOptions;
-  viewMimeTypes?: string;
-  setIncludeFolders?: boolean;
-  setSelectFolderEnabled?: boolean;
   token?: string;
-  multiselect?: boolean;
-  disabled?: boolean;
   appId?: string;
-  supportDrives?: boolean;
-  showUploadView?: boolean;
-  showUploadFolders?: boolean;
-  setParentFolder?: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  customViews?: any[];
+  views: any[];
   locale?: string;
 };
 
 export const defaultConfiguration: PickerConfiguration = {
   clientId: "",
   developerKey: "",
-  viewId: "DOCS",
+  views: [],
+  locale: "en"
 };
