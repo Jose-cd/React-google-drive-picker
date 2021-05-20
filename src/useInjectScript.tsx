@@ -46,7 +46,6 @@ export function useInjectScript(): [boolean, boolean] {
       }
       else
         injector = "loaded" ;
-      script = null ;
     }
 
     const state = (error: boolean) => {
@@ -71,8 +70,9 @@ export function useInjectScript(): [boolean, boolean] {
 
     // remove the event listeners
     return () => {
-      script.removeEventListener("load", onScriptEvent);
-      script.removeEventListener("error", onScriptEvent);
+        script.removeEventListener("load", onScriptEvent);
+        script.removeEventListener("error", onScriptEvent);
+        script = null ;
     };
   }, [url]);
 

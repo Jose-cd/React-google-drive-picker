@@ -11,6 +11,15 @@ function useInjectScript() {
         loaded: false,
         error: false,
     }), state = _a[0], setState = _a[1];
+    // // If already loaded in page
+    // if(window.hasOwnProperty('gapi')) {
+    //   setState({
+    //     loaded:true,
+    //     error:false
+    //   }) ;
+    //   return [true, false];
+    // }
+    //
     react_1.useEffect(function () {
         // check if the script is already cached
         if (injector === "loaded") {
@@ -39,7 +48,6 @@ function useInjectScript() {
             }
             else
                 injector = "loaded";
-            script = null;
         };
         var state = function (error) {
             setState({
@@ -62,6 +70,7 @@ function useInjectScript() {
         return function () {
             script.removeEventListener("load", onScriptEvent);
             script.removeEventListener("error", onScriptEvent);
+            script = null;
         };
     }, [url]);
     return [state.loaded, state.error];
