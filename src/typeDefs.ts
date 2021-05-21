@@ -41,16 +41,16 @@ export type authResult = {
 };
 
 type ViewIdOptions =
-  | "DOCS"
-  | "DOCS_IMAGES"
-  | "DOCS_IMAGES_AND_VIDEOS"
-  | "DOCS_VIDEOS"
-  | "DOCUMENTS"
-  | "DRAWINGS"
-  | "FOLDERS"
-  | "FORMS"
-  | "PDFS"
-  | "SPREADSHEETS";
+  | 'DOCS'
+  | 'DOCS_IMAGES'
+  | 'DOCS_IMAGES_AND_VIDEOS'
+  | 'DOCS_VIDEOS'
+  | 'DOCUMENTS'
+  | 'DRAWINGS'
+  | 'FOLDERS'
+  | 'FORMS'
+  | 'PDFS'
+  | 'SPREADSHEETS';
 
 export type PickerConfiguration = {
   clientId: string;
@@ -59,6 +59,7 @@ export type PickerConfiguration = {
   viewMimeTypes?: string;
   setIncludeFolders?: boolean;
   setSelectFolderEnabled?: boolean;
+  disableDefaultView?: boolean;
   token?: string;
   multiselect?: boolean;
   disabled?: boolean;
@@ -73,7 +74,7 @@ export type PickerConfiguration = {
 };
 
 export const defaultConfiguration: PickerConfiguration = {
-  clientId: "",
-  developerKey: "",
-  viewId: "DOCS",
+  clientId: '',
+  developerKey: '',
+  viewId: 'DOCS',
 };

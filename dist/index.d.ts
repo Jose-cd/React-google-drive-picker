@@ -1,4 +1,4 @@
-import { PickerCallback, PickerConfiguration } from "./typeDefs";
+import { PickerCallback, PickerConfiguration } from './typeDefs';
 export default function useDrivePicker(): [
     (config: PickerConfiguration) => boolean | undefined,
     PickerCallback | undefined

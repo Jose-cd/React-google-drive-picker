@@ -2,27 +2,26 @@
 declare let google: any;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare let window: any;
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 import {
   authResult,
   defaultConfiguration,
   PickerCallback,
   PickerConfiguration,
-} from "./typeDefs";
-import { useInjectScript } from "./useInjectScript";
+} from './typeDefs';
+import { useInjectScript } from './useInjectScript';
 
 export default function useDrivePicker(): [
   (config: PickerConfiguration) => boolean | undefined,
   PickerCallback | undefined
 ] {
-  const defaultScopes = ["https://www.googleapis.com/auth/drive.file"];
+  const defaultScopes = ['https://www.googleapis.com/auth/drive.file'];
   const [loaded, error] = useInjectScript();
   const [pickerApiLoaded, setpickerApiLoaded] = useState(false);
   const [callBackInfo, setCallBackInfo] = useState<PickerCallback>();
   const [openAfterAuth, setOpenAfterAuth] = useState(false);
   const [authWindowVisible, setAuthWindowVisible] = useState(false);
-  const [config, setConfig] =
-    useState<PickerConfiguration>(defaultConfiguration);
+  const [config, setConfig] = useState<PickerConfiguration>(defaultConfiguration);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let picker: any;
@@ -61,9 +60,9 @@ export default function useDrivePicker(): [
   // load the Drive picker api
   const loadApis = () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    window.gapi.load("auth");
+    window.gapi.load('auth');
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    window.gapi.load("picker", { callback: onPickerApiLoad });
+    window.gapi.load('picker', { callback: onPickerApiLoad });
   };
 
   const onPickerApiLoad = () => {
@@ -94,20 +93,21 @@ export default function useDrivePicker(): [
 
   const createPicker = ({
     token,
-    appId = "",
+    appId = '',
     supportDrives = false,
     developerKey,
-    viewId = "DOCS",
+    viewId = 'DOCS',
     disabled,
     multiselect,
     showUploadView = false,
     showUploadFolders,
-    setParentFolder = "",
+    setParentFolder = '',
     viewMimeTypes,
     customViews,
-    locale = "en",
+    locale = 'en',
     setIncludeFolders,
     setSelectFolderEnabled,
+    disableDefaultView = false,
   }: PickerConfiguration) => {
     if (disabled) return false;
 
@@ -123,10 +123,13 @@ export default function useDrivePicker(): [
     picker = new google.picker.PickerBuilder()
       .setAppId(appId)
       .setOAuthToken(token)
-      .addView(view)
       .setDeveloperKey(developerKey)
       .setCallback(pickerCallback)
       .setLocale(locale);
+
+    if (!disableDefaultView) {
+      picker.addView(view);
+    }
 
     if (customViews) {
       customViews.map((view) => picker.addView(view));
