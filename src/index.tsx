@@ -15,7 +15,7 @@ export default function useDrivePicker(): [
   (config: PickerConfiguration) => boolean | undefined,
   PickerCallback | undefined
 ] {
-  const defaultScopes = ['https://www.googleapis.com/auth/drive.file'];
+  const defaultScopes = ['https://www.googleapis.com/auth/drive.readonly'];
   const [loaded, error] = useInjectScript();
   const [pickerApiLoaded, setpickerApiLoaded] = useState(false);
   const [callBackInfo, setCallBackInfo] = useState<PickerCallback>();
