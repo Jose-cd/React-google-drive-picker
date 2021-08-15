@@ -27,7 +27,7 @@ import useDrivePicker from 'react-google-drive-picker'
 
 
 function App() {
-  const [openPicker, data] = useDrivePicker();  
+  const [openPicker, data, authResponse] = useDrivePicker();  
   // const customViewsArray = [new google.picker.DocsView()]; // custom view
   const handleOpenPicker = () => {
     openPicker({

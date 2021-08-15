@@ -27,6 +27,7 @@ function useDrivePicker() {
     var _d = react_1.useState(false), openAfterAuth = _d[0], setOpenAfterAuth = _d[1];
     var _e = react_1.useState(false), authWindowVisible = _e[0], setAuthWindowVisible = _e[1];
     var _f = react_1.useState(typeDefs_1.defaultConfiguration), config = _f[0], setConfig = _f[1];
+    var _g = react_1.useState(), authRes = _g[0], setAuthRes = _g[1];
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     var picker;
     // get the apis from googleapis
@@ -78,6 +79,7 @@ function useDrivePicker() {
     var handleAuthResult = function (authResult) {
         setAuthWindowVisible(false);
         if (authResult && !authResult.error) {
+            setAuthRes(authResult);
             setConfig(function (prev) { return (__assign(__assign({}, prev), { token: authResult.access_token })); });
             setOpenAfterAuth(true);
         }
@@ -127,7 +129,7 @@ function useDrivePicker() {
             setCallBackInfo(data);
         }
     };
-    return [openPicker, callBackInfo];
+    return [openPicker, callBackInfo, authRes];
 }
 exports.default = useDrivePicker;
 //# sourceMappingURL=index.js.map

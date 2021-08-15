@@ -13,7 +13,7 @@ import { useInjectScript } from './useInjectScript';
 
 export default function useDrivePicker(): [
   (config: PickerConfiguration) => boolean | undefined,
-  PickerCallback | undefined
+  PickerCallback | undefined, authResult | undefined
 ] {
   const defaultScopes = ['https://www.googleapis.com/auth/drive.readonly'];
   const [loaded, error] = useInjectScript();
@@ -22,6 +22,7 @@ export default function useDrivePicker(): [
   const [openAfterAuth, setOpenAfterAuth] = useState(false);
   const [authWindowVisible, setAuthWindowVisible] = useState(false);
   const [config, setConfig] = useState<PickerConfiguration>(defaultConfiguration);
+  const [authRes, setAuthRes] = useState<authResult>()
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let picker: any;
@@ -86,6 +87,7 @@ export default function useDrivePicker(): [
   const handleAuthResult = (authResult: authResult) => {
     setAuthWindowVisible(false);
     if (authResult && !authResult.error) {
+      setAuthRes(authResult)
       setConfig((prev) => ({ ...prev, token: authResult.access_token }));
       setOpenAfterAuth(true);
     }
@@ -156,5 +158,5 @@ export default function useDrivePicker(): [
     }
   };
 
-  return [openPicker, callBackInfo];
+  return [openPicker, callBackInfo, authRes];
 }
