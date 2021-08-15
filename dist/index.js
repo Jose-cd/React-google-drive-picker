@@ -20,7 +20,7 @@ var react_1 = require("react");
 var typeDefs_1 = require("./typeDefs");
 var useInjectScript_1 = require("./useInjectScript");
 function useDrivePicker() {
-    var defaultScopes = ['https://www.googleapis.com/auth/drive.file'];
+    var defaultScopes = ['https://www.googleapis.com/auth/drive.readonly'];
     var _a = useInjectScript_1.useInjectScript(), loaded = _a[0], error = _a[1];
     var _b = react_1.useState(false), pickerApiLoaded = _b[0], setpickerApiLoaded = _b[1];
     var _c = react_1.useState(), callBackInfo = _c[0], setCallBackInfo = _c[1];
