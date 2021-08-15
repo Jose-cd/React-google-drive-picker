@@ -15,8 +15,8 @@ function App() {
         .setSelectFolderEnabled(true),
     ];
     openPicker({
-      clientId: "xxxxxxxxxxxx",
-      developerKey: "xxxxxxxxxxxx",
+      clientId: process.env.REACT_APP_CLIENT_ID!,
+      developerKey: process.env.REACT_APP_DEVELOPER_KEY!,
       viewId: "DOCUMENTS",
       viewMimeTypes: "application/vnd.google-apps.spreadsheet",
       setIncludeFolders: true,
@@ -27,6 +27,7 @@ function App() {
       showUploadFolders: true,
       supportDrives: true,
       multiselect: true,
+      customScopes: ["https://www.googleapis.com/auth/gmail.readonly"]
     });
   };
 
@@ -37,8 +38,8 @@ function App() {
         .setSelectFolderEnabled(true),
     ];
     openPicker2({
-      clientId: "xxxxxxxxxxxx",
-      developerKey: "xxxxxxxxxxxx",
+      clientId: process.env.REACT_APP_CLIENT_ID!,
+      developerKey: process.env.REACT_APP_DEVELOPER_KEY!,
       viewId: "DOCUMENTS",
       viewMimeTypes: "application/vnd.google-apps.spreadsheet",
       setIncludeFolders: true,

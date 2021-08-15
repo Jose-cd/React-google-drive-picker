@@ -71,6 +71,7 @@ export type PickerConfiguration = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   customViews?: any[];
   locale?: string;
+  customScopes?: string[];
 };
 
 export const defaultConfiguration: PickerConfiguration = {

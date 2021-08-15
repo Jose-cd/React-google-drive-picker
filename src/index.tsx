@@ -75,7 +75,7 @@ export default function useDrivePicker(): [
       window.gapi.auth.authorize(
         {
           client_id: config.clientId,
-          scope: defaultScopes,
+          scope: config.customScopes ? [...defaultScopes, ...config.customScopes]: defaultScopes,
           immediate: false,
         },
         handleAuthResult
