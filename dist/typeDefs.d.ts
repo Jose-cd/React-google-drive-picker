@@ -60,6 +60,7 @@ export declare type PickerConfiguration = {
     setParentFolder?: string;
     customViews?: any[];
     locale?: string;
+    customScopes?: string[];
 };
 export declare const defaultConfiguration: PickerConfiguration;
 export {};

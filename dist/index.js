@@ -10,6 +10,11 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
+var __spreadArray = (this && this.__spreadArray) || function (to, from) {
+    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
+        to[j] = from[i];
+    return to;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = require("react");
 var typeDefs_1 = require("./typeDefs");
@@ -65,7 +70,7 @@ function useDrivePicker() {
         if (authWindowVisible) {
             window.gapi.auth.authorize({
                 client_id: config.clientId,
-                scope: defaultScopes,
+                scope: config.customScopes ? __spreadArray(__spreadArray([], defaultScopes), config.customScopes) : defaultScopes,
                 immediate: false,
             }, handleAuthResult);
         }
