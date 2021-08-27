@@ -2,30 +2,33 @@
 declare let google: any;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare let window: any;
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import {
+  Picker,
   authResult,
   defaultConfiguration,
   PickerCallback,
   PickerConfiguration,
-} from './typeDefs';
-import { useInjectScript } from './useInjectScript';
+} from "./typeDefs";
+import { useInjectScript } from "./useInjectScript";
 
 export default function useDrivePicker(): [
   (config: PickerConfiguration) => boolean | undefined,
-  PickerCallback | undefined, authResult | undefined
+  PickerCallback | undefined,
+  authResult | undefined
 ] {
-  const defaultScopes = ['https://www.googleapis.com/auth/drive.readonly'];
+  const defaultScopes = ["https://www.googleapis.com/auth/drive.readonly"];
   const [loaded, error] = useInjectScript();
   const [pickerApiLoaded, setpickerApiLoaded] = useState(false);
   const [callBackInfo, setCallBackInfo] = useState<PickerCallback>();
   const [openAfterAuth, setOpenAfterAuth] = useState(false);
   const [authWindowVisible, setAuthWindowVisible] = useState(false);
-  const [config, setConfig] = useState<PickerConfiguration>(defaultConfiguration);
-  const [authRes, setAuthRes] = useState<authResult>()
+  const [config, setConfig] =
+    useState<PickerConfiguration>(defaultConfiguration);
+  const [authRes, setAuthRes] = useState<authResult>();
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let picker: any;
+  let picker: Picker;
 
   // get the apis from googleapis
   useEffect(() => {
@@ -61,9 +64,9 @@ export default function useDrivePicker(): [
   // load the Drive picker api
   const loadApis = () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    window.gapi.load('auth');
+    window.gapi.load("auth");
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    window.gapi.load('picker', { callback: onPickerApiLoad });
+    window.gapi.load("picker", { callback: onPickerApiLoad });
   };
 
   const onPickerApiLoad = () => {
@@ -76,7 +79,9 @@ export default function useDrivePicker(): [
       window.gapi.auth.authorize(
         {
           client_id: config.clientId,
-          scope: config.customScopes ? [...defaultScopes, ...config.customScopes]: defaultScopes,
+          scope: config.customScopes
+            ? [...defaultScopes, ...config.customScopes]
+            : defaultScopes,
           immediate: false,
         },
         handleAuthResult
@@ -87,7 +92,7 @@ export default function useDrivePicker(): [
   const handleAuthResult = (authResult: authResult) => {
     setAuthWindowVisible(false);
     if (authResult && !authResult.error) {
-      setAuthRes(authResult)
+      setAuthRes(authResult);
       setConfig((prev) => ({ ...prev, token: authResult.access_token }));
       setOpenAfterAuth(true);
     }
@@ -95,21 +100,22 @@ export default function useDrivePicker(): [
 
   const createPicker = ({
     token,
-    appId = '',
+    appId = "",
     supportDrives = false,
     developerKey,
-    viewId = 'DOCS',
+    viewId = "DOCS",
     disabled,
     multiselect,
     showUploadView = false,
     showUploadFolders,
-    setParentFolder = '',
+    setParentFolder = "",
     viewMimeTypes,
     customViews,
-    locale = 'en',
+    locale = "en",
     setIncludeFolders,
     setSelectFolderEnabled,
     disableDefaultView = false,
+    onPreBuild,
   }: PickerConfiguration) => {
     if (disabled) return false;
 
@@ -146,7 +152,7 @@ export default function useDrivePicker(): [
     if (supportDrives) {
       picker.enableFeature(google.picker.Feature.SUPPORT_DRIVES);
     }
-
+    if (onPreBuild) onPreBuild(picker);
     picker.build().setVisible(true);
     return true;
   };

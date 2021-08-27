@@ -7,7 +7,7 @@
   "scripts": {
     "watch": "tsc -w",
     "dev": "nodemon ./dist/index.js",
-    "lint": "eslint 'src/**/*.{js,ts,tsx} --fix"
+    "lint": "eslint 'src/**/*.{js,ts,tsx}' --fix"
   },
   "author": "Jose-cd",
   "repository": {
