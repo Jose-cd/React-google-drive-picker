@@ -9275,7 +9275,7 @@
 
 "react-google-drive-picker@file:..":
   "resolved" "file:.."
-  "version" "1.0.0"
+  "version" "1.1.4"
 
 "react-is@^16.6.0":
   "integrity" "sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ=="

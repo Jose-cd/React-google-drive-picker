@@ -1,10 +1,11 @@
 {
   "name": "react-google-drive-picker",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "React google drive picker api",
   "types": "./dist",
   "main": "./dist/index.js",
   "scripts": {
+    "build": "tsc",
     "watch": "tsc -w",
     "dev": "nodemon ./dist/index.js",
     "lint": "eslint 'src/**/*.{js,ts,tsx} --fix",
@@ -39,5 +40,10 @@
     "prettier": "2.3.2",
     "prettier-eslint": "^12.0.0",
     "typescript": "^4.2.4"
+  },
+
+  "peerDependencies": {
+    "react": ">=17.0.0",
+    "react-dom": ">=17.0.0"
   }
 }

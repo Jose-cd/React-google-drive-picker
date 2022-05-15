@@ -63,5 +63,8 @@ export declare type PickerConfiguration = {
     customScopes?: string[];
 };
 export declare const defaultConfiguration: PickerConfiguration;
+export declare type HookOptions = {
+    onCancel?: () => any;
+};
 export {};
 //# sourceMappingURL=typeDefs.d.ts.map

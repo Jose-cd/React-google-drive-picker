@@ -10,34 +10,39 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
-var __spreadArray = (this && this.__spreadArray) || function (to, from) {
-    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
-        to[j] = from[i];
-    return to;
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = require("react");
 var typeDefs_1 = require("./typeDefs");
 var useInjectScript_1 = require("./useInjectScript");
-function useDrivePicker() {
+function useDrivePicker(_a) {
+    var onCancel = _a.onCancel;
     var defaultScopes = ['https://www.googleapis.com/auth/drive.readonly'];
-    var _a = useInjectScript_1.useInjectScript(), loaded = _a[0], error = _a[1];
-    var _b = react_1.useState(false), pickerApiLoaded = _b[0], setpickerApiLoaded = _b[1];
-    var _c = react_1.useState(), callBackInfo = _c[0], setCallBackInfo = _c[1];
-    var _d = react_1.useState(false), openAfterAuth = _d[0], setOpenAfterAuth = _d[1];
-    var _e = react_1.useState(false), authWindowVisible = _e[0], setAuthWindowVisible = _e[1];
-    var _f = react_1.useState(typeDefs_1.defaultConfiguration), config = _f[0], setConfig = _f[1];
-    var _g = react_1.useState(), authRes = _g[0], setAuthRes = _g[1];
+    var _b = (0, useInjectScript_1.useInjectScript)(), loaded = _b[0], error = _b[1];
+    var _c = (0, react_1.useState)(false), pickerApiLoaded = _c[0], setpickerApiLoaded = _c[1];
+    var _d = (0, react_1.useState)(), callBackInfo = _d[0], setCallBackInfo = _d[1];
+    var _e = (0, react_1.useState)(false), openAfterAuth = _e[0], setOpenAfterAuth = _e[1];
+    var _f = (0, react_1.useState)(false), authWindowVisible = _f[0], setAuthWindowVisible = _f[1];
+    var _g = (0, react_1.useState)(typeDefs_1.defaultConfiguration), config = _g[0], setConfig = _g[1];
+    var _h = (0, react_1.useState)(), authRes = _h[0], setAuthRes = _h[1];
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     var picker;
     // get the apis from googleapis
-    react_1.useEffect(function () {
+    (0, react_1.useEffect)(function () {
         if (loaded && !error && !pickerApiLoaded) {
             loadApis();
         }
     }, [loaded, error, pickerApiLoaded]);
     // use effect to open picker after auth
-    react_1.useEffect(function () {
+    (0, react_1.useEffect)(function () {
         if (openAfterAuth && config.token && loaded && !error && pickerApiLoaded) {
             createPicker(config);
             setOpenAfterAuth(false);
@@ -67,11 +72,12 @@ function useDrivePicker() {
         setpickerApiLoaded(true);
     };
     // Open auth window after given config state is ready
-    react_1.useEffect(function () {
+    (0, react_1.useEffect)(function () {
         if (authWindowVisible) {
             window.gapi.auth.authorize({
                 client_id: config.clientId,
-                scope: config.customScopes ? __spreadArray(__spreadArray([], defaultScopes), config.customScopes) : defaultScopes,
+                scope: config.customScopes
+                    ? __spreadArray(__spreadArray([], defaultScopes, true), config.customScopes, true) : defaultScopes,
                 immediate: false,
             }, handleAuthResult);
         }
@@ -96,6 +102,8 @@ function useDrivePicker() {
         if (setSelectFolderEnabled)
             view.setSelectFolderEnabled(true);
         var uploadView = new google.picker.DocsUploadView();
+        if (viewMimeTypes)
+            uploadView.setMimeTypes(viewMimeTypes);
         if (showUploadFolders)
             uploadView.setIncludeFolders(true);
         if (setParentFolder)
@@ -125,6 +133,9 @@ function useDrivePicker() {
     };
     // A simple callback implementation.
     var pickerCallback = function (data) {
+        if (data.action === google.picker.Action.CANCEL && onCancel) {
+            onCancel();
+        }
         if (data.action === google.picker.Action.PICKED) {
             setCallBackInfo(data);
         }

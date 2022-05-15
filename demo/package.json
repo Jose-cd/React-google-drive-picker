@@ -12,6 +12,7 @@
     "@types/react-dom": "^17.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-google-drive-picker": "file:..",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "typescript": "^4.1.2",
@@ -19,6 +20,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "install:local:pkg": "npm install ../ &&rm -rf ./node_modules/react-google-drive-picker/node_modules",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

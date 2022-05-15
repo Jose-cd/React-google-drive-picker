@@ -6,12 +6,13 @@ import { useEffect, useState } from 'react'
 import {
   authResult,
   defaultConfiguration,
+  HookOptions,
   PickerCallback,
   PickerConfiguration,
 } from './typeDefs'
 import { useInjectScript } from './useInjectScript'
 
-export default function useDrivePicker(): [
+export default function useDrivePicker({onCancel}: HookOptions): [
   (config: PickerConfiguration) => boolean | undefined,
   PickerCallback | undefined,
   authResult | undefined
@@ -158,6 +159,10 @@ export default function useDrivePicker(): [
 
   // A simple callback implementation.
   const pickerCallback = (data: PickerCallback) => {
+    if(data.action === google.picker.Action.CANCEL && onCancel){
+      onCancel()
+    }
+
     if (data.action === google.picker.Action.PICKED) {
       setCallBackInfo(data)
     }

@@ -27,7 +27,7 @@ import useDrivePicker from 'react-google-drive-picker'
 
 
 function App() {
-  const [openPicker, data, authResponse] = useDrivePicker();  
+  const [openPicker, data, authResponse] = useDrivePicker({onCancel: () => console.log("User closed picker with close/cancel button")});  
   // const customViewsArray = [new google.picker.DocsView()]; // custom view
   const handleOpenPicker = () => {
     openPicker({

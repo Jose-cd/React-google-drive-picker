@@ -79,3 +79,8 @@ export const defaultConfiguration: PickerConfiguration = {
   developerKey: '',
   viewId: 'DOCS',
 }
+
+
+export type HookOptions = {
+  onCancel?: () => any
+}
