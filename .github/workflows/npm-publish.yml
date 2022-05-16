@@ -23,7 +23,6 @@ jobs:
       - name: Publish to NPMJS
         run: |
           npm config set //registry.npmjs.org/:_authToken=$NPM_TOKEN
-          npm config set scope "<@jose-cd>"
           npm config list
           npm publish --access public 
         env:
