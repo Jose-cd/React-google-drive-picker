@@ -6,21 +6,18 @@ import { useEffect, useState } from 'react'
 import {
   authResult,
   defaultConfiguration,
-  HookOptions,
   PickerCallback,
   PickerConfiguration,
 } from './typeDefs'
 import { useInjectScript } from './useInjectScript'
 
-export default function useDrivePicker({onCancel}: HookOptions): [
+export default function useDrivePicker(): [
   (config: PickerConfiguration) => boolean | undefined,
-  PickerCallback | undefined,
   authResult | undefined
 ] {
   const defaultScopes = ['https://www.googleapis.com/auth/drive.readonly']
   const [loaded, error] = useInjectScript()
   const [pickerApiLoaded, setpickerApiLoaded] = useState(false)
-  const [callBackInfo, setCallBackInfo] = useState<PickerCallback>()
   const [openAfterAuth, setOpenAfterAuth] = useState(false)
   const [authWindowVisible, setAuthWindowVisible] = useState(false)
   const [config, setConfig] =
@@ -115,6 +112,7 @@ export default function useDrivePicker({onCancel}: HookOptions): [
     setIncludeFolders,
     setSelectFolderEnabled,
     disableDefaultView = false,
+    callbackFunction,
   }: PickerConfiguration) => {
     if (disabled) return false
 
@@ -132,8 +130,8 @@ export default function useDrivePicker({onCancel}: HookOptions): [
       .setAppId(appId)
       .setOAuthToken(token)
       .setDeveloperKey(developerKey)
-      .setCallback(pickerCallback)
       .setLocale(locale)
+      .setCallback(callbackFunction)
 
     if (!disableDefaultView) {
       picker.addView(view)
@@ -157,16 +155,5 @@ export default function useDrivePicker({onCancel}: HookOptions): [
     return true
   }
 
-  // A simple callback implementation.
-  const pickerCallback = (data: PickerCallback) => {
-    if(data.action === google.picker.Action.CANCEL && onCancel){
-      onCancel()
-    }
-
-    if (data.action === google.picker.Action.PICKED) {
-      setCallBackInfo(data)
-    }
-  }
-
-  return [openPicker, callBackInfo, authRes]
+  return [openPicker, authRes]
 }

@@ -61,10 +61,8 @@ export declare type PickerConfiguration = {
     customViews?: any[];
     locale?: string;
     customScopes?: string[];
+    callbackFunction: (data: PickerCallback) => any;
 };
 export declare const defaultConfiguration: PickerConfiguration;
-export declare type HookOptions = {
-    onCancel?: () => any;
-};
 export {};
 //# sourceMappingURL=typeDefs.d.ts.map

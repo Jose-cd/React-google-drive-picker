@@ -1,3 +1,7 @@
 demo
 src
 .env
+.vscode
+.tsconfig.json
+.eslintrc.json
+.prettierrc.json

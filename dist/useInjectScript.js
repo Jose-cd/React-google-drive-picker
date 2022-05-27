@@ -7,11 +7,11 @@ var queue = [];
 var injector = 'init';
 var script = null;
 function useInjectScript() {
-    var _a = (0, react_1.useState)({
+    var _a = react_1.useState({
         loaded: false,
         error: false,
     }), state = _a[0], setState = _a[1];
-    (0, react_1.useEffect)(function () {
+    react_1.useEffect(function () {
         // check if the script is already cached
         if (injector === 'loaded') {
             setState({

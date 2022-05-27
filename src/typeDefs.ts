@@ -72,15 +72,12 @@ export type PickerConfiguration = {
   customViews?: any[]
   locale?: string
   customScopes?: string[]
+  callbackFunction: (data: PickerCallback) => any
 }
 
 export const defaultConfiguration: PickerConfiguration = {
   clientId: '',
   developerKey: '',
   viewId: 'DOCS',
-}
-
-
-export type HookOptions = {
-  onCancel?: () => any
+  callbackFunction: () => null,
 }

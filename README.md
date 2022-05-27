@@ -27,7 +27,7 @@ import useDrivePicker from 'react-google-drive-picker'
 
 
 function App() {
-  const [openPicker, data, authResponse] = useDrivePicker({onCancel: () => console.log("User closed picker with close/cancel button")});  
+  const [openPicker, authResponse] = useDrivePicker();  
   // const customViewsArray = [new google.picker.DocsView()]; // custom view
   const handleOpenPicker = () => {
     openPicker({
@@ -40,15 +40,15 @@ function App() {
       supportDrives: true,
       multiselect: true,
       // customViews: customViewsArray, // custom view
+      callbackFunction: (data) => {
+        if (data.action === 'cancel') {
+          console.log('User clicked cancel/close button')
+        }
+        console.log(data)
+      },
     })
   }
 
-  useEffect(() => {
-    // do anything with the selected/uploaded files
-    if(data){
-      data.docs.map(i => console.log(i.name))
-    }
-  }, [data])
 
   
   return (
@@ -68,6 +68,7 @@ export default App;
 
 |    params        |   value  |  default value   |          description          |
 |------------------|----------|------------------|-------------------------------|
+| callbackFunction  |function    |  REQUIRED       |Callback function that will be called on picker action |
 |    clientId      |  string  |     REQUIRED     |      Google client id         |
 |    developerKey  |  string  |     REQUIRED     |      Google developer key     |
 |    disableDefaultView  |  boolean  |     false     |      disables default view     |

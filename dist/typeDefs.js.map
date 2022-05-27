@@ -1,1 +1,1 @@
-{"version":3,"file":"typeDefs.js","sourceRoot":"","sources":["../src/typeDefs.ts"],"names":[],"mappings":";;;AA4Ea,QAAA,oBAAoB,GAAwB;IACvD,QAAQ,EAAE,EAAE;IACZ,YAAY,EAAE,EAAE;IAChB,MAAM,EAAE,MAAM;CACf,CAAA"}
+{"version":3,"file":"typeDefs.js","sourceRoot":"","sources":["../src/typeDefs.ts"],"names":[],"mappings":";;;AA6Ea,QAAA,oBAAoB,GAAwB;IACvD,QAAQ,EAAE,EAAE;IACZ,YAAY,EAAE,EAAE;IAChB,MAAM,EAAE,MAAM;IACd,gBAAgB,EAAE,cAAM,OAAA,IAAI,EAAJ,CAAI;CAC7B,CAAA"}
