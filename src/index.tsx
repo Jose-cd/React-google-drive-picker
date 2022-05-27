@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react'
 import {
   authResult,
   defaultConfiguration,
-  PickerCallback,
   PickerConfiguration,
 } from './typeDefs'
 import { useInjectScript } from './useInjectScript'
