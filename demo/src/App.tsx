@@ -23,7 +23,7 @@ function App() {
       setIncludeFolders: true,
       setSelectFolderEnabled: true,
       // customViews: customView,
-      token: "ya29.a0ARrdaM8VcMdbuM48D-xPTSgAKXUa3yEwRbALdtBkfpTtc-jOozTufJRjqlUm61R2JXyajVocYsl5mZZ03LkRkmukCTpzwg4OLzavhgc-hqm18ky6TvUDWz9SUTV_8vCrXVFU2fQNQKyGb_Z_ViPl7buVW8DKqQ",
+      // token,
       showUploadView: true,
       showUploadFolders: true,
       supportDrives: true,
