@@ -7,6 +7,8 @@ function App() {
   const [openPicker, authResult] = useDrivePicker()
   const [openPicker2] = useDrivePicker()
 
+  console.log(authResult)
+
   const handleOpenPicker = () => {
     const customViews = [
       new google.picker.DocsView()
@@ -21,7 +23,7 @@ function App() {
       setIncludeFolders: true,
       setSelectFolderEnabled: true,
       // customViews: customView,
-      // token: token
+      // token,
       showUploadView: true,
       showUploadFolders: true,
       supportDrives: true,

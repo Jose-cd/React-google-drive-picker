@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 // const url = 'https://apis.google.com/js/api.js';
 
 type InjectorType = 'init' | 'loading' | 'loaded' | 'error'
@@ -94,8 +94,12 @@ export default function useInjectScript(url: string): [boolean, boolean] {
       //checks the main injector instance
       //prevents Cannot read property 'removeEventListener' of null in hot reload
       if (!injectorState.scriptMap[url]) return
-      injectorState.scriptMap[url]?.removeEventListener('load', onScriptEvent)
-      injectorState.scriptMap[url]?.removeEventListener('error', onScriptEvent)
+      injectorState.scriptMap[url]?.removeEventListener('load', () =>
+        onScriptEvent(true)
+      )
+      injectorState.scriptMap[url]?.removeEventListener('error', () =>
+        onScriptEvent(true)
+      )
     }
   }, [url])
 
