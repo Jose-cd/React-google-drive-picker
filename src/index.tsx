@@ -8,14 +8,17 @@ import {
   defaultConfiguration,
   PickerConfiguration,
 } from './typeDefs'
-import { useInjectScript } from './useInjectScript'
+import useInjectScript from './useInjectScript'
 
 export default function useDrivePicker(): [
   (config: PickerConfiguration) => boolean | undefined,
   authResult | undefined
 ] {
   const defaultScopes = ['https://www.googleapis.com/auth/drive.readonly']
-  const [loaded, error] = useInjectScript()
+  const [loaded, error] = useInjectScript('https://apis.google.com/js/api.js')
+  const [loadedGsi, errorGsi] = useInjectScript(
+    'https://accounts.google.com/gsi/client'
+  )
   const [pickerApiLoaded, setpickerApiLoaded] = useState(false)
   const [openAfterAuth, setOpenAfterAuth] = useState(false)
   const [authWindowVisible, setAuthWindowVisible] = useState(false)
@@ -28,18 +31,34 @@ export default function useDrivePicker(): [
 
   // get the apis from googleapis
   useEffect(() => {
-    if (loaded && !error && !pickerApiLoaded) {
+    if (loaded && !error && loadedGsi && !errorGsi && !pickerApiLoaded) {
       loadApis()
     }
-  }, [loaded, error, pickerApiLoaded])
+  }, [loaded, error, loadedGsi, errorGsi, pickerApiLoaded])
 
   // use effect to open picker after auth
   useEffect(() => {
-    if (openAfterAuth && config.token && loaded && !error && pickerApiLoaded) {
+    if (
+      openAfterAuth &&
+      config.token &&
+      loaded &&
+      !error &&
+      loadedGsi &&
+      !errorGsi &&
+      pickerApiLoaded
+    ) {
       createPicker(config)
       setOpenAfterAuth(false)
     }
-  }, [openAfterAuth, config.token, loaded, error, pickerApiLoaded])
+  }, [
+    openAfterAuth,
+    config.token,
+    loaded,
+    error,
+    loadedGsi,
+    errorGsi,
+    pickerApiLoaded,
+  ])
 
   // open the picker
   const openPicker = (config: PickerConfiguration) => {
@@ -48,7 +67,18 @@ export default function useDrivePicker(): [
 
     // if we didnt get token generate token.
     if (!config.token) {
-      setAuthWindowVisible(true)
+      const client = google.accounts.oauth2.initTokenClient({
+        client_id: config.clientId,
+        scope: (config.customScopes
+          ? [...defaultScopes, ...config.customScopes]
+          : defaultScopes
+        ).join(' '),
+        callback: (tokenResponse: { access_token: string }) => {
+          createPicker({ ...config, token: tokenResponse.access_token })
+        },
+      })
+
+      client.requestAccessToken()
     }
 
     // if we have token and everything is loaded open the picker
@@ -67,31 +97,6 @@ export default function useDrivePicker(): [
 
   const onPickerApiLoad = () => {
     setpickerApiLoaded(true)
-  }
-
-  // Open auth window after given config state is ready
-  useEffect(() => {
-    if (authWindowVisible) {
-      window.gapi.auth.authorize(
-        {
-          client_id: config.clientId,
-          scope: config.customScopes
-            ? [...defaultScopes, ...config.customScopes]
-            : defaultScopes,
-          immediate: false,
-        },
-        handleAuthResult
-      )
-    }
-  }, [authWindowVisible])
-
-  const handleAuthResult = (authResult: authResult) => {
-    setAuthWindowVisible(false)
-    if (authResult && !authResult.error) {
-      setAuthRes(authResult)
-      setConfig((prev) => ({ ...prev, token: authResult.access_token }))
-      setOpenAfterAuth(true)
-    }
   }
 
   const createPicker = ({
