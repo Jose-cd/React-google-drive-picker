@@ -23,21 +23,13 @@ export type PickerCallback = {
   docs: CallbackDoc[]
 }
 
-export type authResult = {
-  access_token: string
-  authuser: string
-  client_id: string
-  cookie_policy: string
-  expires_at: string
-  expires_in: string
-  issued_at: string
-  login_hint: string
-  response_type: string | undefined
-  scope: string
-  session_state: null
-  status: { signed_in: boolean; method: string; google_logged_in: boolean }
-  token_type: string
-  error: boolean | undefined
+export type authResult =  {
+  access_token: string;
+  token_type: string;
+  expires_in: number;
+  scope: string;
+  authuser: string;
+  prompt: string;
 }
 
 type ViewIdOptions =
