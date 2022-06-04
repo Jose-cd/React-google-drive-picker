@@ -43,6 +43,7 @@ type ViewIdOptions =
   | 'FORMS'
   | 'PDFS'
   | 'SPREADSHEETS'
+  | 'PRESENTATIONS'
 
 export type PickerConfiguration = {
   clientId: string
