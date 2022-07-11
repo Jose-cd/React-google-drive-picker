@@ -33,6 +33,7 @@ function App() {
     openPicker({
       clientId: "xxxxxxxxxxxxxxxxx",
       developerKey: "xxxxxxxxxxxx",
+      appId: "xxxxxxxxxxxx",
       viewId: "DOCS",
       // token: token, // pass oauth token in case you already have one
       showUploadView: true,
@@ -71,6 +72,7 @@ export default App;
 | callbackFunction  |function    |  REQUIRED       |Callback function that will be called on picker action |
 |    clientId      |  string  |     REQUIRED     |      Google client id         |
 |    developerKey  |  string  |     REQUIRED     |      Google developer key     |
+|    appId  |  string  |     optional     |      Google app ID (optional - may be required if using drive.file scope)     |
 |    disableDefaultView  |  boolean  |     false     |      disables default view     |
 |    viewId        |  string  |     DOCS         |         ViewIdOptions         |
 |    viewMimeTypes |  string  |     optional     |Comma separated mimetypes. Use this in place of viewId if you need to filter multiple type of files. list: https://developers.google.com/drive/api/v3/mime-types.|
