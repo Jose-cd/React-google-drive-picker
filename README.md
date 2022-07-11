@@ -76,7 +76,6 @@ export default App;
 |    disableDefaultView  |  boolean  |     false     |      disables default view     |
 |    viewId        |  string  |     DOCS         |         ViewIdOptions         |
 |    viewMimeTypes |  string  |     optional     |Comma separated mimetypes. Use this in place of viewId if you need to filter multiple type of files. list: https://developers.google.com/drive/api/v3/mime-types.|
-|    viewQuery    |  string  |     optional     |Used to set a search query i.e. View.searchQuery(viewQuery) |
 |setIncludeFolders|  boolean  |     false        |Show folders in the view items.|
 |setSelectFolderEnabled|boolean|     false       |Allows the user to select a folder in Google Drive.|
 |   token          |  string  |     optional     | access_token to skip auth part|
