@@ -102,7 +102,7 @@ export default function useDrivePicker(): [
 
   const createPicker = ({
     token,
-    appId = '',
+    appId,
     supportDrives = false,
     developerKey,
     viewId = 'DOCS',
