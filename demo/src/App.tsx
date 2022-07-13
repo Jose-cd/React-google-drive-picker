@@ -26,8 +26,7 @@ function App() {
       // token,
       showUploadView: true,
       showUploadFolders: true,
-      supportDrives: true,
-      multiselect: true,
+      enabledFeatures: ['SUPPORT_DRIVES', 'MULTISELECT'],
       customScopes: ['https://www.googleapis.com/auth/gmail.readonly'],
       callbackFunction: (data) => {
         if (data.action === 'cancel') {
@@ -49,8 +48,7 @@ function App() {
       // token: token
       showUploadView: true,
       showUploadFolders: true,
-      supportDrives: true,
-      multiselect: true,
+      enabledFeatures: ['SIMPLE_UPLOAD', 'MINE_ONLY'],
       callbackFunction: (data) => {
         console.log(data)
       },
