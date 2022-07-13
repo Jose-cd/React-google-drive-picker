@@ -23,13 +23,13 @@ export type PickerCallback = {
   docs: CallbackDoc[]
 }
 
-export type authResult =  {
-  access_token: string;
-  token_type: string;
-  expires_in: number;
-  scope: string;
-  authuser: string;
-  prompt: string;
+export type authResult = {
+  access_token: string
+  token_type: string
+  expires_in: number
+  scope: string
+  authuser: string
+  prompt: string
 }
 
 type ViewIdOptions =
@@ -45,6 +45,13 @@ type ViewIdOptions =
   | 'SPREADSHEETS'
   | 'PRESENTATIONS'
 
+export type PickerFeatureOption =
+  | 'MINE_ONLY'
+  | 'MULTISELECT'
+  | 'HIDE_NAV'
+  | 'SIMPLE_UPLOAD'
+  | 'SUPPORT_DRIVES'
+
 export type PickerConfiguration = {
   clientId: string
   developerKey: string
@@ -54,10 +61,8 @@ export type PickerConfiguration = {
   setSelectFolderEnabled?: boolean
   disableDefaultView?: boolean
   token?: string
-  multiselect?: boolean
   disabled?: boolean
   appId?: string
-  supportDrives?: boolean
   showUploadView?: boolean
   showUploadFolders?: boolean
   setParentFolder?: string
@@ -66,6 +71,7 @@ export type PickerConfiguration = {
   locale?: string
   customScopes?: string[]
   callbackFunction: (data: PickerCallback) => any
+  enabledFeatures?: PickerFeatureOption[]
 }
 
 export const defaultConfiguration: PickerConfiguration = {
