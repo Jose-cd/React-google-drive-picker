@@ -103,11 +103,9 @@ export default function useDrivePicker(): [
   const createPicker = ({
     token,
     appId = '',
-    supportDrives = false,
     developerKey,
     viewId = 'DOCS',
     disabled,
-    multiselect,
     showUploadView = false,
     showUploadFolders,
     setParentFolder = '',
@@ -118,6 +116,7 @@ export default function useDrivePicker(): [
     setSelectFolderEnabled,
     disableDefaultView = false,
     callbackFunction,
+    enabledFeatures,
   }: PickerConfiguration) => {
     if (disabled) return false
 
@@ -147,14 +146,32 @@ export default function useDrivePicker(): [
       customViews.map((view) => picker.addView(view))
     }
 
-    if (multiselect) {
-      picker.enableFeature(google.picker.Feature.MULTISELECT_ENABLED)
-    }
-
     if (showUploadView) picker.addView(uploadView)
 
-    if (supportDrives) {
-      picker.enableFeature(google.picker.Feature.SUPPORT_DRIVES)
+    if (enabledFeatures) {
+      enabledFeatures.forEach((feature) => {
+        let featureType
+        switch (feature) {
+          case 'MINE_ONLY':
+            featureType = google.picker.Feature.MINE_ONLY
+            break
+          case 'MULTISELECT':
+            featureType = google.picker.Feature.MULTISELECT_ENABLED
+            break
+          case 'HIDE_NAV':
+            featureType = google.picker.Feature.NAV_HIDDEN
+            break
+          case 'SIMPLE_UPLOAD':
+            featureType = google.picker.Feature.SIMPLE_UPLOAD_ENABLED
+            break
+          case 'SUPPORT_DRIVES':
+            featureType = google.picker.Feature.SUPPORT_DRIVES
+            break
+          default:
+            featureType = undefined
+        }
+        if (featureType) picker.enableFeature(featureType)
+      })
     }
 
     picker.build().setVisible(true)
