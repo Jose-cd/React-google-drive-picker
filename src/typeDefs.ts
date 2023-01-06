@@ -48,7 +48,6 @@ type ViewIdOptions =
 export type PickerConfiguration = {
   clientId: string
   developerKey: string
-  AppId?: string
   viewId?: ViewIdOptions
   viewMimeTypes?: string
   setIncludeFolders?: boolean
