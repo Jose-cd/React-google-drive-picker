@@ -130,6 +130,7 @@ export default function useDrivePicker(): [
     if (viewMimeTypes) uploadView.setMimeTypes(viewMimeTypes)
     if (showUploadFolders) uploadView.setIncludeFolders(true)
     if (setParentFolder) uploadView.setParent(setParentFolder)
+    if (setParentFolder) view.setParent(setParentFolder)
 
     picker = new google.picker.PickerBuilder()
       .setAppId(appId)
