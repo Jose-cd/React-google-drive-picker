@@ -77,6 +77,7 @@ export default App;
 |setIncludeFolders|  boolean  |     false        |Show folders in the view items.|
 |setSelectFolderEnabled|boolean|     false       |Allows the user to select a folder in Google Drive.|
 |   token          |  string  |     optional     | access_token to skip auth part|
+| setOrigin        |  string  |     optional     | Sets the origin of the Google Picker dialog |
 |  multiselect     |  boolean |     false        | Enable picker multiselect     |
 | supportDrives    |  boolean |     false        |    Support shared drives      |
 | showUploadView   |  boolean |     false        |     Enable upload view        |

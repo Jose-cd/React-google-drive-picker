@@ -54,6 +54,7 @@ export type PickerConfiguration = {
   setSelectFolderEnabled?: boolean
   disableDefaultView?: boolean
   token?: string
+  setOrigin?: string
   multiselect?: boolean
   disabled?: boolean
   appId?: string
