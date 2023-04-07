@@ -108,6 +108,7 @@ export default function useDrivePicker(): [
     viewId = 'DOCS',
     disabled,
     multiselect,
+    setOrigin,
     showUploadView = false,
     showUploadFolders,
     setParentFolder = '',
@@ -138,6 +139,10 @@ export default function useDrivePicker(): [
       .setDeveloperKey(developerKey)
       .setLocale(locale)
       .setCallback(callbackFunction)
+
+    if (setOrigin) {
+      picker.setOrigin(setOrigin)
+    }
 
     if (!disableDefaultView) {
       picker.addView(view)
