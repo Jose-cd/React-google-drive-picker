@@ -5,10 +5,13 @@ on: [workflow_dispatch]
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+      # Setup .npmrc file to publish to npm
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependencies
         run: npm install
