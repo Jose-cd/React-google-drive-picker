@@ -1,7 +1,7 @@
 import useDrivePicker from 'react-google-drive-picker'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-declare let google: any
+// declare let google: any
 
 function App() {
   const [openPicker, authResult] = useDrivePicker()
@@ -10,11 +10,11 @@ function App() {
   console.log(authResult)
 
   const handleOpenPicker = () => {
-    const customViews = [
-      new google.picker.DocsView()
-        .setIncludeFolders(true)
-        .setSelectFolderEnabled(true),
-    ]
+    // const customViews = [
+    //   new google.picker.DocsView()
+    //     .setIncludeFolders(true)
+    //     .setSelectFolderEnabled(true),
+    // ]
     openPicker({
       clientId: process.env.REACT_APP_CLIENT_ID!,
       developerKey: process.env.REACT_APP_DEVELOPER_KEY!,
