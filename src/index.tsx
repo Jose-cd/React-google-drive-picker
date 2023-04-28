@@ -2,7 +2,7 @@
 declare let google: any
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare let window: any
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import {
   authResult,
   defaultConfiguration,
@@ -12,7 +12,8 @@ import useInjectScript from './useInjectScript'
 
 export default function useDrivePicker(): [
   (config: PickerConfiguration) => boolean | undefined,
-  authResult | undefined
+  authResult | undefined,
+  () => void,
 ] {
   const defaultScopes = ['https://www.googleapis.com/auth/drive.readonly']
   const [loaded, error] = useInjectScript('https://apis.google.com/js/api.js')
@@ -21,7 +22,7 @@ export default function useDrivePicker(): [
   )
   const [pickerApiLoaded, setpickerApiLoaded] = useState(false)
   const [openAfterAuth, setOpenAfterAuth] = useState(false)
-  const [authWindowVisible, setAuthWindowVisible] = useState(false)
+  const pickerInstanceRef = useRef<{ setVisible(isVisible: boolean): void; dispose(): void }>();
   const [config, setConfig] =
     useState<PickerConfiguration>(defaultConfiguration)
   const [authRes, setAuthRes] = useState<authResult>()
@@ -162,9 +163,17 @@ export default function useDrivePicker(): [
       picker.enableFeature(google.picker.Feature.SUPPORT_DRIVES)
     }
 
-    picker.build().setVisible(true)
+    pickerInstanceRef.current = picker.build()
+
+    pickerInstanceRef.current?.setVisible(true)
+
     return true
   }
 
-  return [openPicker, authRes]
+  const closePicker = () => {
+    pickerInstanceRef.current?.setVisible(false)
+    pickerInstanceRef.current?.dispose()
+  }
+
+  return [openPicker, authRes, closePicker]
 }
