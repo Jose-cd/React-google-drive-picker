@@ -166,5 +166,5 @@ export default function useDrivePicker(): [
     return true
   }
 
-  return [openPicker, authRes]
+  return [openPicker, authRes, google]
 }
