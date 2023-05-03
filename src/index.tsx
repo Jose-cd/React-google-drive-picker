@@ -124,7 +124,7 @@ export default function useDrivePicker(): [
 
     const view = new google.picker.DocsView(google.picker.ViewId[viewId])
     if (viewMimeTypes) view.setMimeTypes(viewMimeTypes)
-    if (setIncludeFolders) view.setSelectFolderEnabled(true)
+    if (setIncludeFolders) view.setIncludeFolders(true)
     if (setSelectFolderEnabled) view.setSelectFolderEnabled(true)
 
     const uploadView = new google.picker.DocsUploadView()
