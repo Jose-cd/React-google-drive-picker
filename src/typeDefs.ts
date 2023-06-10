@@ -51,6 +51,7 @@ export type PickerConfiguration = {
   viewId?: ViewIdOptions
   viewMimeTypes?: string
   setIncludeFolders?: boolean
+  setOwnedByMe?: boolean
   setSelectFolderEnabled?: boolean
   disableDefaultView?: boolean
   token?: string
