@@ -20,6 +20,7 @@ function App() {
       developerKey: process.env.REACT_APP_DEVELOPER_KEY!,
       viewId: 'DOCUMENTS',
       viewMimeTypes: 'application/vnd.google-apps.spreadsheet',
+      viewMode: 'LIST',
       setIncludeFolders: true,
       setSelectFolderEnabled: true,
       // customViews: customView,
