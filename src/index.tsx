@@ -21,6 +21,7 @@ export default function useDrivePicker(): [
   )
   const [pickerApiLoaded, setpickerApiLoaded] = useState(false)
   const [openAfterAuth, setOpenAfterAuth] = useState(false)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [authWindowVisible, setAuthWindowVisible] = useState(false)
   const [config, setConfig] =
     useState<PickerConfiguration>(defaultConfiguration)
@@ -113,6 +114,7 @@ export default function useDrivePicker(): [
     showUploadFolders,
     setParentFolder = '',
     viewMimeTypes,
+    viewMode,
     customViews,
     locale = 'en',
     setIncludeFolders,
@@ -124,6 +126,7 @@ export default function useDrivePicker(): [
 
     const view = new google.picker.DocsView(google.picker.ViewId[viewId])
     if (viewMimeTypes) view.setMimeTypes(viewMimeTypes)
+    if (viewMode) view.setMode(google.picker.DocsViewMode[viewMode])
     if (setIncludeFolders) view.setIncludeFolders(true)
     if (setSelectFolderEnabled) view.setSelectFolderEnabled(true)
 
