@@ -93,7 +93,7 @@ export default function useDrivePicker(): [
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     window.gapi.load('auth')
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    window.gapi.load('picker', { callback: onPickerApiLoad })
+    window.gapi.load('client:picker', { callback: onPickerApiLoad })
   }
 
   const onPickerApiLoad = () => {
