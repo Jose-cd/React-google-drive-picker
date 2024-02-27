@@ -23,13 +23,13 @@ export type PickerCallback = {
   docs: CallbackDoc[]
 }
 
-export type authResult =  {
-  access_token: string;
-  token_type: string;
-  expires_in: number;
-  scope: string;
-  authuser: string;
-  prompt: string;
+export type authResult = {
+  access_token: string
+  token_type: string
+  expires_in: number
+  scope: string
+  authuser: string
+  prompt: string
 }
 
 type ViewIdOptions =
@@ -45,11 +45,14 @@ type ViewIdOptions =
   | 'SPREADSHEETS'
   | 'PRESENTATIONS'
 
+type ViewModeOptions = 'GRID' | 'LIST'
+
 export type PickerConfiguration = {
   clientId: string
   developerKey: string
   viewId?: ViewIdOptions
   viewMimeTypes?: string
+  viewMode?: ViewModeOptions
   setIncludeFolders?: boolean
   setSelectFolderEnabled?: boolean
   disableDefaultView?: boolean
